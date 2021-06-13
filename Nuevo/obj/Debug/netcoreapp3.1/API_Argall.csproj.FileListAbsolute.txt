@@ -1,0 +1,5 @@
+C:\Users\Tobias Longstaff\source\repos\Nuevo\Nuevo\obj\Debug\netcoreapp3.1\API_Argall.csprojAssemblyReference.cache
+C:\Users\Tobias Longstaff\source\repos\Nuevo\Nuevo\obj\Debug\netcoreapp3.1\API_Argall.AssemblyInfoInputs.cache
+C:\Users\Tobias Longstaff\source\repos\Nuevo\Nuevo\obj\Debug\netcoreapp3.1\API_Argall.AssemblyInfo.cs
+C:\Users\Tobias Longstaff\source\repos\Nuevo\Nuevo\obj\Debug\netcoreapp3.1\API_Argall.csproj.CoreCompileInputs.cache
+C:\Users\Tobias Longstaff\source\repos\Nuevo\Nuevo\obj\Debug\netcoreapp3.1\API_Argall.MvcApplicationPartsAssemblyInfo.cache
