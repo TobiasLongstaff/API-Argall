@@ -39,30 +39,31 @@ namespace API_Argall.Controllers
         }*/
 
         // POST api/values
-        [HttpPost("Insertart")]
-        public async Task<ActionResult<Argall_Bd>> Insertart([FromBody] Argall_Bd value)
+        [HttpPost]
+        public async Task<ActionResult<Argall_Bd>> Post([FromBody] Argall_Bd value)
         {
-            var response = await _repository.InsertAgregar(value);
-            if (response == null) { return NotFound(); }
-            return response;
+
+            if (value.idbulto != null)
+            {
+                var response = await _repository.InsertAgregar(value);
+                if (response == null) { return NotFound(); }
+                return response;
+            }
+            else if(value.idpallet != null)
+            {
+                var response = await _repository.CerrarPallets(value);
+                if (response == null) { return NotFound(); }
+                return response;
+            }
+            else
+            {
+                var response  = await _repository.Login(value);
+                if (response == null) { return NotFound(); }
+                return response;
+            }
         }
 
-        [HttpPost("Cerrar")]
-        public async Task<ActionResult<Argall_Bd>> Cerrar([FromBody] Argall_Bd value)
-        {
-            var response = await _repository.CerrarPallets(value);
-            if (response == null) { return NotFound(); }
-            return response;
-        }
-
-        [HttpPost("Login")]
-        public async Task<ActionResult<Argall_Bd>> Login([FromBody] Argall_Bd value)
-        {
-            var response = await _repository.Login(value);
-            if (response == null) { return NotFound(); }
-            return response;
-        }
-
+ 
         /*public async Task<ActionResult<Argall_Bd>> Post([FromBody] Argall_Bd value)
         {
             if(value.idpallet != null)

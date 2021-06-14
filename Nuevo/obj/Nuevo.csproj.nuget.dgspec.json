@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Tobias Longstaff\\source\\repos\\Nuevo\\Nuevo\\Nuevo.csproj": {}
+    "C:\\Users\\Tobias Longstaff\\source\\repos\\API-Argall\\Nuevo\\Nuevo.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Tobias Longstaff\\source\\repos\\Nuevo\\Nuevo\\Nuevo.csproj": {
+    "C:\\Users\\Tobias Longstaff\\source\\repos\\API-Argall\\Nuevo\\Nuevo.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Tobias Longstaff\\source\\repos\\Nuevo\\Nuevo\\Nuevo.csproj",
+        "projectUniqueName": "C:\\Users\\Tobias Longstaff\\source\\repos\\API-Argall\\Nuevo\\Nuevo.csproj",
         "projectName": "Nuevo",
-        "projectPath": "C:\\Users\\Tobias Longstaff\\source\\repos\\Nuevo\\Nuevo\\Nuevo.csproj",
+        "projectPath": "C:\\Users\\Tobias Longstaff\\source\\repos\\API-Argall\\Nuevo\\Nuevo.csproj",
         "packagesPath": "C:\\Users\\Tobias Longstaff\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Tobias Longstaff\\source\\repos\\Nuevo\\Nuevo\\obj\\",
+        "outputPath": "C:\\Users\\Tobias Longstaff\\source\\repos\\API-Argall\\Nuevo\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

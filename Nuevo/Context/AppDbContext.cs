@@ -48,16 +48,16 @@ namespace API_Argall.Context
         {
             using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GOJT95K;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
             {
-                using (SqlCommand cmd = new SqlCommand("usuarios_getbyone", sql))
+                using (SqlCommand cmd2 = new SqlCommand("usuarios_getbyone", sql))
                 {
                     string password = EncriptaLinea(value.password);
                     await sql.OpenAsync();
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.Parameters.Add(new SqlParameter("@idusuario", value.idusuario));
-                    cmd.Parameters.Add(new SqlParameter("@password", password));
+                    cmd2.CommandType = CommandType.StoredProcedure;
+                    cmd2.Parameters.Add(new SqlParameter("@idusuario", value.idusuario));
+                    cmd2.Parameters.Add(new SqlParameter("@password", password));
                     Argall_Bd response = null;
 
-                    using (var reader = await cmd.ExecuteReaderAsync())
+                    using (var reader = await cmd2.ExecuteReaderAsync())
                     {
                         while (await reader.ReadAsync())
                         {
