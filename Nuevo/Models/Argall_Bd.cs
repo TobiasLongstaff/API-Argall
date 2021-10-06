@@ -51,5 +51,11 @@ namespace API_Argall.Models
 
         public string rol { get; set; }
 
+        public string idcamara { get; set; }
+
+        public string Camara { get; set; }
+
+        public string Value { get; set; }
+
     }
 }

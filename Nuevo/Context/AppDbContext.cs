@@ -23,7 +23,7 @@ namespace API_Argall.Context
 
         public async Task<List<Argall_Bd>> GetAll()
         {
-            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GOJT95K;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
             {
                 using (SqlCommand cmd = new SqlCommand("pallets_getactivos", sql))
                 {
@@ -44,9 +44,32 @@ namespace API_Argall.Context
             }
         }
 
-        public async Task<Argall_Bd> Login(Argall_Bd value)
+        public async Task<List<Argall_Bd>> GetById(int Id)
         {
-            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GOJT95K;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            {
+                using (SqlCommand cmd = new SqlCommand("camara_getbycombo", sql))
+                {                    
+                    await sql.OpenAsync();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    var response = new List<Argall_Bd>();
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            response.Add(MapToCamara(reader));
+                        }
+                    }
+
+                    return response;
+                }
+            }
+        }
+
+        public async Task <Argall_Bd> Login(Argall_Bd value)
+        {
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
             {
                 using (SqlCommand cmd2 = new SqlCommand("usuarios_getbyone", sql))
                 {
@@ -72,7 +95,7 @@ namespace API_Argall.Context
 
         public async Task <Argall_Bd> InsertAgregar(Argall_Bd value)
         {
-            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GOJT95K;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
             {
                 using (SqlCommand cmd = new SqlCommand("pallets_save", sql))
                 {
@@ -98,7 +121,7 @@ namespace API_Argall.Context
 
         public async Task <Argall_Bd> CerrarPallets(Argall_Bd value)
         {
-            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GOJT95K;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
             {
                 using (SqlCommand cmd = new SqlCommand("pallets_close", sql))
                 {
@@ -114,6 +137,32 @@ namespace API_Argall.Context
                         while (await reader.ReadAsync())
                         {
                             response = MapToValuePOST(reader);
+                        }
+                    }
+
+                    return response;
+                }
+            }
+        }
+
+        public async Task<Argall_Bd> AsignarCamara(Argall_Bd value)
+        {
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            {
+                using (SqlCommand cmd = new SqlCommand("pallets_assigncamara", sql))
+                {
+                    await sql.OpenAsync();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@idpallet", value.idpallet));
+                    cmd.Parameters.Add(new SqlParameter("@idcamara", value.idcamara));
+                    cmd.Parameters.Add(new SqlParameter("@movimiento", value.movimiento));
+                    Argall_Bd response = null;
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            response = MapToValueCamaraPOST(reader);
                         }
                     }
 
@@ -142,6 +191,15 @@ namespace API_Argall.Context
             return (Salida);
         }
 
+        private Argall_Bd MapToCamara(SqlDataReader reader)
+        {
+            return new Argall_Bd()
+            {
+                idcamara = reader["# Camara"].ToString(),
+                Camara = reader["Camara"].ToString()
+            };
+        }
+
         private Argall_Bd MapToValue(SqlDataReader reader)
         {
             return new Argall_Bd()
@@ -163,6 +221,18 @@ namespace API_Argall.Context
             return new Argall_Bd()
             {
                 Pallet = reader["# Pallet"].ToString(),
+                Bulto = reader["# Bulto"].ToString(),
+                Error = reader["Error"].ToString(),
+                Observacion = reader["Observaciones"].ToString()
+            };
+        }
+
+        private Argall_Bd MapToValueCamaraPOST(SqlDataReader reader)
+        {
+            return new Argall_Bd()
+            {
+                Pallet = reader["# Pallet"].ToString(),
+                Camara = reader["# Camara"].ToString(),
                 Bulto = reader["# Bulto"].ToString(),
                 Error = reader["Error"].ToString(),
                 Observacion = reader["Observaciones"].ToString()

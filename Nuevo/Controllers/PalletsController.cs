@@ -30,19 +30,22 @@ namespace API_Argall.Controllers
         }
 
         // GET api/values/5
-        /*[HttpGet("{Idbulto}")]
-        public async Task<ActionResult<Argall_Bd>> Get(int Idbulto)
+        [HttpGet("{Idbulto}")]
+        public async Task<ActionResult<IEnumerable<Argall_Bd>>> Get(int id)
         {
-            var response = await _repository.GetById(Idbulto);
-            if (response == null) { return NotFound(); }
-            return response;
-        }*/
+            return await _repository.GetById(id);
+        }
 
         // POST api/values
         [HttpPost]
         public async Task<ActionResult<Argall_Bd>> Post([FromBody] Argall_Bd value)
         {
-
+            if(value.idcamara != null)
+            {
+                var response = await _repository.AsignarCamara(value);
+                if (response == null) { return NotFound(); }
+                return response;
+            }
             if (value.idbulto != null)
             {
                 var response = await _repository.InsertAgregar(value);
@@ -63,116 +66,11 @@ namespace API_Argall.Controllers
             }
         }
 
- 
-        /*public async Task<ActionResult<Argall_Bd>> Post([FromBody] Argall_Bd value)
-        {
-            if(value.idpallet != null)
-            {
-                var response = await _repository.CerrarPallets(value);
-                if (response == null) { return NotFound(); }
-                return response;
-            }
-            else if(value.idbulto != null)
-            {
-                var response = await _repository.InsertAgregar(value);
-                if (response == null) { return NotFound(); }
-                return response;
-            }
-            else
-            {
-                var response = await _repository.Login(value);
-                if (response == null) { return NotFound(); }
-                return response;
-            }
-        }*/
-
         // PUT api/values/5
         [HttpPut("{id}")]
         public void Put(int id, [FromBody] string value)
         {
         }
-
-        // DELETE api/values/5
-        /*[HttpDelete("{id}")]
-        public async Task Delete(int id)
-        {
-           await _repository.DeleteById(id);
-        }
-        private readonly AppDbContext context;
-
-        public PalletsController(AppDbContext context)
-        {
-            this.context = context;
-        }
-
-        // GET: api/<PalletsController>
-        [HttpGet]
-        public ActionResult Get()
-        {
-            try
-            {
-                return Ok(context.tabla_prueba.ToList());
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        // GET api/<PalletsController>/5
-        [HttpGet("{id}", Name = "GetGestor")]
-        public ActionResult Get(int id)
-        {
-            try
-            {
-                var pallet = context.tabla_prueba.FirstOrDefault(g => g.id == id);
-                return Ok(pallet);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-
-        }
-
-        // POST api/<PalletsController>
-        [HttpPost]
-        public ActionResult Post([FromBody] Argall_Bd pallet)
-        {
-            try
-            {
-                context.tabla_prueba.Add(pallet);
-                context.SaveChanges();
-                return CreatedAtRoute("GetGestor", new { id = pallet.id }, pallet);
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }
-
-        // PUT api/<PalletsController>/5
-        [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Argall_Bd pallet)
-        {
-            try
-            {
-                if (pallet.id == id)
-                {
-                    context.Entry(pallet).State = EntityState.Modified;
-                    context.SaveChanges();
-                    return CreatedAtRoute("GetGestor", new { id = pallet.id }, pallet);
-                }
-                else
-                {
-                    return BadRequest();
-                }
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
-        }*/
 
         // DELETE api/<PalletsController>/5
         [HttpDelete("{id}")]

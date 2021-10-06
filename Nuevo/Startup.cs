@@ -38,6 +38,7 @@ namespace Nuevo
             app.UseCors(options =>
             {
                 options.WithOrigins("http://localhost:3000");
+                options.WithOrigins("http://192.168.100.56:3000");
                 options.AllowAnyMethod();
                 options.AllowAnyHeader();
             });
