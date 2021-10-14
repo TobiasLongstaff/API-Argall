@@ -57,5 +57,7 @@ namespace API_Argall.Models
 
         public string Value { get; set; }
 
+        public string tipo { get; set; }
+
     }
 }

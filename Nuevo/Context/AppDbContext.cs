@@ -171,6 +171,32 @@ namespace API_Argall.Context
             }
         }
 
+        public async Task<Argall_Bd> EliminarBulto(Argall_Bd value)
+        {
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            {
+                using (SqlCommand cmd = new SqlCommand("pallets_save", sql))
+                {
+                    await sql.OpenAsync();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@idbulto", value.idbulto));
+                    cmd.Parameters.Add(new SqlParameter("@idpuesto", value.idpuesto));
+                    cmd.Parameters.Add(new SqlParameter("@movimiento", value.movimiento));
+                    Argall_Bd response = null;
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            response = MapToValuePOST(reader);
+                        }
+                    }
+
+                    return response;
+                }
+            }
+        }
+
         public static string EncriptaLinea(string renglon)
         {
             string Salida = "";

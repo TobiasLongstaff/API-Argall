@@ -46,7 +46,13 @@ namespace API_Argall.Controllers
                 if (response == null) { return NotFound(); }
                 return response;
             }
-            if (value.idbulto != null)
+            else if(value.tipo != null)
+            {
+                var response = await _repository.EliminarBulto(value);
+                if (response == null) { return NotFound(); }
+                return response;
+            }
+            else if (value.idbulto != null)
             {
                 var response = await _repository.InsertAgregar(value);
                 if (response == null) { return NotFound(); }
