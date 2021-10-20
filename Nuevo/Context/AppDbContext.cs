@@ -44,7 +44,7 @@ namespace API_Argall.Context
             }
         }
 
-        public async Task<List<Argall_Bd>> GetById(int Id)
+        public async Task<List<Argall_Bd>> ObtenerCamaras()
         {
             using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
             {
@@ -59,6 +59,30 @@ namespace API_Argall.Context
                         while (await reader.ReadAsync())
                         {
                             response.Add(MapToCamara(reader));
+                        }
+                    }
+
+                    return response;
+                }
+            }
+        }
+
+        public async Task<List<Argall_Bd>> ObtenerPuestos(string tipopuesto)
+        {
+            using (SqlConnection sql = new SqlConnection("data source=DESKTOP-GPSPIGJ;initial catalog=Cuser_SA; user id=Tobias; password=2231; MultipleActiveResultSets=true"))
+            {
+                using (SqlCommand cmd = new SqlCommand("puestos_getbyproceso", sql))
+                {
+                    await sql.OpenAsync();
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add(new SqlParameter("@idproceso", tipopuesto));
+                    var response = new List<Argall_Bd>();
+
+                    using (var reader = await cmd.ExecuteReaderAsync())
+                    {
+                        while (await reader.ReadAsync())
+                        {
+                            response.Add(MapToValuePuestoPOST(reader));
                         }
                     }
 
@@ -250,6 +274,15 @@ namespace API_Argall.Context
                 Bulto = reader["# Bulto"].ToString(),
                 Error = reader["Error"].ToString(),
                 Observacion = reader["Observaciones"].ToString()
+            };
+        }
+
+        private Argall_Bd MapToValuePuestoPOST(SqlDataReader reader)
+        {
+            return new Argall_Bd()
+            {
+                idpuesto = reader["# puesto"].ToString(),
+                PuestosNombre = reader["puesto"].ToString(),
             };
         }
 

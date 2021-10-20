@@ -55,9 +55,10 @@ namespace API_Argall.Models
 
         public string Camara { get; set; }
 
-        public string Value { get; set; }
-
         public string tipo { get; set; }
-
+        
+        public string PuestosNombre { get; set; }
+     
+        public string tipopuesto { get; set; }
     }
 }

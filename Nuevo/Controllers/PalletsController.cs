@@ -30,10 +30,16 @@ namespace API_Argall.Controllers
         }
 
         // GET api/values/5
-        [HttpGet("{Idbulto}")]
-        public async Task<ActionResult<IEnumerable<Argall_Bd>>> Get(int id)
+        [HttpGet("camaras")]
+        public async Task<ActionResult<IEnumerable<Argall_Bd>>> GetCamatas()
         {
-            return await _repository.GetById(id);
+            return await _repository.ObtenerCamaras();
+        }
+
+        [HttpGet("puesto/{tipopuesto}")]
+        public async Task<ActionResult<IEnumerable<Argall_Bd>>> GetPuesto(string tipopuesto)
+        {
+            return await _repository.ObtenerPuestos(tipopuesto);
         }
 
         // POST api/values
